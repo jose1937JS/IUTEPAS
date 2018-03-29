@@ -1,0 +1,39 @@
+include header.pug
+
+.container
+	br
+	h4 Resultado de la búsqueda en #{tipo}:
+	br
+
+	table.table.table-bordered.table-hover.table-sm
+		thead.thead-bg-dark
+			th Cédula
+			th Nombre
+			th Apellido
+			th Teléfono
+			if (tipo == 'Seminarios')
+				th Correo
+				th Seminario
+				th Duración
+			else
+				th Acciones
+		tbody
+			each resultados in search		
+				tr
+					td= resultados.cedula
+					td= resultados.nombre
+					td= resultados.apellido
+					td= resultados.telefono
+					if (tipo == 'Seminarios')
+						td= resultados.correo
+						td= resultados.nombresem
+						td= resultados.duracion
+					else
+						td(colspan="2")
+							a.btn.btn-info.btn-sm(href="/estudiante/"+tipo+"/"+ resultados.id data-toggle="tooltip" title="Información del estudiante")
+								i.fa.fa-info
+							span  
+							a.btn.btn-danger.btn-sm(href="/borrar/"+tipo+"/"+ resultados.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+								i.fa.fa-trash-o
+
+include footer.pug

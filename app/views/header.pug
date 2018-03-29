@@ -1,0 +1,283 @@
+doctype html
+html
+	head
+		meta(charset="utf8")
+		meta(name="viewport" content="width=1024, initial-scale=0.9")
+		title Sistema de control IUTEPAS
+		link(rel="stylesheet" href="/libs/bootstrap4/css/bootstrap.css")
+		link(rel="stylesheet" href="/libs/fa-4.7.0/css/font-awesome.min.css")
+		link(rel="stylesheet" href="/css/estilos.css")
+	body
+		nav.navbar.navbar-light.bg-light.navbar-expand-lg.border.fixed-top
+			.collapse.navbar-collapse.row
+				.navbar-nav.col-auto.mr-auto
+					a.navbar-brand(href="/inicio")
+						img.d-inline-block.align-top(src="/images/img.png" width="35" height="35")
+						span(data-toggle="tooltip" title="Instituto Universitario de Tecnología Pascal")  IUTEPAS
+					ul.nav
+						li.nav-item
+							a.nav-link(href="/Pasantia") Pasantes
+						li.nav-item
+							a.nav-link(href="/ServicioComunitario" style="margin-left:10px") Servicio Comunitario
+						li.nav-item
+							a.nav-item.nav-link(href="/seminario" style="margin-left:10px") Seminarios
+				form.form-inline.col-auto(method="post" action="/busqueda")
+					input.form-control.mr-sm-2(type="search" placeholder="Buscar por nombre" aria-label="Search" autofocus name="busqueda" required)
+					select.form-control(name="optionL")  
+						option(value="ServicioComunitario") Servicio Comunitario
+						option(value="Pasantia") Pasantía
+						option(value="Seminarios") Seminarios
+					span &nbsp;
+					button.btn.btn-primary.my-2.my-sm-0(type="submit" autofocus)
+						i.fa.fa-search
+			
+			button.btn.btn-warning.add2.sombra(title="Añadir Seminario" data-target="#modalDos" data-toggle="modal")
+				i.fa.fa-graduation-cap
+			button.btn.btn-primary.add.sombra(title="Añadir Estudiante" data-target="#modal" data-toggle="modal")
+				i.fa.fa-group
+			span &nbsp;&nbsp;
+
+			button.btn.btn-danger.add3.sombra(title="Personal" data-target="#pesonal" data-toggle="modal")
+				i.fa.fa-graduation-cap
+			
+			form(action="/salir" method="post")
+				button.btn.btn-warning.my-2.my-sm-0(type="submit" data-toggle="tooltip" title="Cerrar Sesión")
+					i.fa.fa-sign-out
+
+		//- COdigo del modal
+		.modal.fade#modal
+			.modal-dialog.modal-lg
+				.modal-content
+					.modal-header
+						h4.modal-title.text-center Ingresar Estudiante
+						button.close(data-dismiss="modal" aria-label="close")
+							span(aria-hidden="true") &times;
+					form.modal-body(method="post" action="/aniadir")
+						h5 Datos personales:
+						.form-row
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-id-card-o
+								input.form-control(type="text" id="cedula"  placeholder="Cédula" name="cedula" data-toggle="tooltip" title="Cédula" required pattern="[0-9]{7,8}" maxlength="8")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-user
+								input.form-control(type="text" maxlength="20" id="nombre" placeholder="Nombres" name="nombre" data-toggle="tooltip" title="Nombres" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-user
+								input.form-control(type="text" maxlength="20" id="apellido" placeholder="Apellidos" name="apellido" data-toggle="tooltip" title="Apellidos" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+						.form-row
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-phone
+								input.form-control(type="text" id="telefono" maxlength="11" placeholder="Número de Teléfono" name="telefono" data-toggle="tooltip" title="Teléfono. (Dejar vacío si no posee)" pattern="[0-9]{7,11}")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-envelope
+								input.form-control(type="email" id="email" maxlength="30" placeholder="Correo electrónico" name="email" data-toggle="tooltip" title="Email" required )
+						br
+						h5 Datos académicos:
+						.form-row
+							.input-group.col-md-3
+								.input-group-addon
+									i.fa.fa-graduation-cap
+								select#tipo.form-control(name="tipo" selected data-toggle="tooltip" title="Pasantia, Servicio Comunitario o Seminario" )
+									option Tipo
+									option(value="Pasantia") Pasantia
+									option(value="ServicioComunitario") Servicio Comunitario
+									option(value="Seminario") Seminario
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-institution
+								input#instpasan.form-control(type="text" maxlength="50" placeholder="Institución para pasantias" name="insPasantia" data-toggle="tooltip" title="Institución/Empresa donde hacer pasantias" required )
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-institution
+								input#dir.form-control(type="text" maxlength="100" placeholder="Dirección" name="dir" data-toggle="tooltip" title="Dirección de la organización" required )
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-phone
+								input#telOrg.form-control(type="text" maxlength="11" placeholder="Número de Teléfono" name="telOrg" data-toggle="tooltip" title="Teléfono de la Organización" pattern="[0-9]{7,11}")
+						.form-row
+							.input-group.col-md-3
+								.input-group-addon
+									i.fa.fa-institution
+								select#esp.form-control(name="esp" data-toggle="tooltip" title="Profesión del Tutor Empresarial")
+									option(selected) Profesión
+									option(value="Lic") Licendiado(a)
+									option(value="Ing") Ingeniero(a)
+									option(value="Dr") Doctor(a)
+									option(value="Abg") Abogado(a)
+									option(value="Prof") Profesor(a)
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-user
+								input#tutor.form-control(type="text" maxlength="30" placeholder="Tutor Empresarial" name="tutor" data-toggle="tooltip" title="Nombre y apellido del tutor empresarial" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-id-card-o
+								input#cedulaTutor.form-control(type="text" maxlength="8" placeholder="Cédula" name="cedTutor" data-toggle="tooltip" title="Cédula del tutor empresarial" required pattern="[0-9]{7,8}")
+						.form-row
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-envelope
+								input#correoTutor.form-control(type="email" placeholder="Correo" name="correoTutor" data-toggle="tooltip" title="Correo Electrónico del Tutor Empresarial" required )
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-institution
+								input#cargoTutor.form-control(type="text" placeholder="Cargo del Tutor Empresarial" name="cargoTutor" data-toggle="tooltip" title="Cargo" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-user
+								input#tutorAcad.form-control(type="text" maxlength="30" placeholder="Tutor Académico" name="tutorAcad" data-toggle="tooltip" title="Nombre y apellido del tutor académico" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+						.form-row
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-id-card-o
+								input#cedulaAcad.form-control(type="text" maxlength="8" placeholder="Cédula" name="cedTutorAcad" data-toggle="tooltip" title="Cédula del tutor académico" required pattern="[0-9]{7,8}")
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-calendar
+								input#fecha.form-control(type="date" placeholder="Fecha de inicio" name="fechaInicio" data-toggle="tooltip" title="Fecha de Ingreso" required)
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-institution
+								input#carrera.form-control(type="text" maxlength="50" placeholder="Carrera que cursa el estudiante" name="carrera" data-toggle="tooltip" title="Carrera que está cursando el estudiante" required pattern="[a-zA-Z]+( ?[a-zA-Z])*")
+						.form-row
+							.input-group.col-md-4
+								.input-group-addon
+									i.fa.fa-calendar
+								select#seminari.form-control(name="seminario" data-toggle="tooltip" title="Selecciona el seminario a inscribirte"  )
+									option(selected) Selecciona un seminario
+									each seminarios in seminar
+										option(value= seminarios.id) #{seminarios.nombresem}
+							.input-group.col-md-3
+								.input-group-addon
+									i.fa.fa-institution
+								input#inst.form-control(type="text" maxlength="50" placeholder="Institución para Servicio Comunitario" name="institucion" data-toggle="tooltip" title="Institución/Empresa donde hacer Servicio Comunitario" required )
+							.input-group.col
+								.input-group-addon
+									i.fa.fa-code
+								input#proyec.form-control(type="text" maxlength="500" placeholder="Proyecto" name="proyecto" data-toggle="tooltip" title="Proyecto del estudiante" required )
+						.modal-footer
+							.form-row
+								input.sombra.btn.btn-secondary(type="reset" value="Reset")  
+								span &nbsp;&nbsp;
+								button.sombra.btn.btn-primary(type="submit")
+									i.fa.fa-user-plus
+									span  Añadir
+
+		-// MODAL PARA AÑADIR SEMIANRIOS
+		.modal.fade#modalDos
+			.modal-dialog
+				.modal-content
+					.modal-header
+						h3.modal-title.text-center Ingresar un Seminario
+						button.close(data-dismiss="modal" aria-label="close")
+							span(aria-hidden="true") &times;
+					form.modal-body(method="post" action="/aniadirSem")
+						.form-row
+							.input-group.col-12
+								.input-group-addon
+									i.fa.fa-slack
+								input.form-control(type="text" placeholder="Nombre del Seminario" name="semname" data-toggle="tooltip" title="Titulo del seminario" maxlength="50")
+						.form-row
+							.input-group.col-6
+								.input-group-addon
+									i.fa.fa-clock-o
+								input.form-control(pattern="[0-9]{2}:[0-9]{2}" type="text" maxlength="5" placeholder="Duración" name="durac" data-toggle="tooltip" title="Duración en horas y minutos (00:00)")
+							.input-group.col-6
+								.input-group-addon
+									i.fa.fa-calendar
+								input.form-control(type="date" name="fecha" 
+								data-toggle="tooltip" title="Fecha de inicio del seminario")
+						br
+						.modal-footer
+							.form-row
+								input.sombra.btn.btn-secondary(type="reset" value="Reset")  
+								span &nbsp;&nbsp;
+								button.sombra.btn.btn-primary(type="submit")
+									i.fa.fa-star
+									span  Añadir
+
+		//-  MODAL DE Para MOSTRARR Y AÑADIR A LOS EMPLEADOS
+		.modal.fade#pesonal
+			.modal-dialog.modal-lg
+				.modal-content
+					.modal-header
+						h3.modal-title.center-text Personal
+						button.close(data-dismiss="modal" aria-label="close")
+							span(aria-hidden="true") &times;
+					.modal-body
+						table.table.table-bordered.table-hover
+							thead.thead-bg-dark
+								th id
+								th Cédula
+								th Nombre
+								th Cargo
+								th ...
+							tbody
+								each per in personal
+									tr
+										td= per.id
+										td= per.cedulaEmp
+										td= per.nombreEmp
+										td= per.cargo
+										td 
+											button.editar.btn.btn-danger.btn-sm(data-toggle="tooltip" data-placement="right" title="Editar" onclick="$('#id').val("+per.id+")")
+												i.fa.fa-edit
+
+						//- button#boton.sombra.btn.btn-primary Añadir Personal
+						//- br
+						//- br
+						//- form.modal-body#aniadir(method="post" action="/aniadirPersonal", style="display:none")
+						//- 	h5 Añadir personal
+						//- 	.form-row
+						//- 		.input-group.col-12
+						//- 			.input-group-addon
+						//- 				i.fa.fa-slack
+						//- 			input.form-control(type="text" placeholder="Nombre" name="nombrePers" data-toggle="tooltip" title="Nombre y apellido" pattern="[a-zA-Z]+( ?[a-zA-Z])*" maxlength="60")
+						//- 	.form-row
+						//- 		.input-group.col-12
+						//- 			.input-group-addon
+						//- 				i.fa.fa-slack
+						//- 			input.form-control(type="text" placeholder="Cargo" name="cargo" data-toggle="tooltip" title="Cargo que ejerce esta persona" pattern="[a-zA-Z]+( ?[a-zA-Z])*" maxlength="70")
+						//- 	.modal-footer
+						//- 		.form-row
+						//- 			button.sombra.btn.btn-primary(type="submit")
+						//- 				i.fa.fa-user-plus
+						//- 				span  Añadir
+
+
+						form.modal-body#editar(method="post" action="/editarEmp" style="display:none")
+							h5 Editar personal
+
+							input#id(type="hidden" name="id")
+
+							.form-row
+								.input-group.col
+									.input-group-addon
+										i.fa.fa-slack
+									input.form-control(type="text" placeholder="Cédula" name="cedulaPers" data-toggle="tooltip" title="Cédula" pattern="[0-9]{7,8}" maxlength="8" required)
+								.input-group.col
+									.input-group-addon
+										i.fa.fa-institution
+									select#profesion.form-control(name="profesion" data-toggle="tooltip" title="Profesión del Empleado" required)
+										option(selected disabled) Profesión
+										option(value="Lic") Licendiado(a)
+										option(value="Ing") Ingeniero(a)
+										option(value="Dr") Doctor(a)
+										option(value="Abg") Abogado(a)
+										option(value="Prof") Profesor(a)
+							.form-row
+								.input-group.col
+									.input-group-addon
+										i.fa.fa-slack
+									input.form-control(type="text" placeholder="Nombre" name="nombrePers" data-toggle="tooltip" title="Nombre y apellido" pattern="[a-zA-Z]+( ?[a-zA-Z])*" maxlength="60" required)
+							
+							.modal-footer
+								.form-row
+									button.sombra.btn.btn-primary(type="submit")
+										i.fa.fa-user-plus
+										span  Editar

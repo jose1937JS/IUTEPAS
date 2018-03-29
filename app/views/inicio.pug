@@ -1,0 +1,78 @@
+include header.pug
+
+.container
+	br
+	div.alert.alert-info.alert-dismissible.fade.show
+		span Bienvenid@! entrastes en la sesión de 
+			strong #{role}.
+		button.close(data-dismiss="alert", aria-label="close")
+			span(aria-hidden="true") &times;
+
+
+	h3.text-center Instituto Universitario de Tecnología Pascal
+	br
+	br
+	.row
+		.col-8
+			p.n Objetivo
+			p El Instituto Universitario de Tecnología Pascal es una organización de educación universitaria de carácter privado, cuyo objetivo es formar profesionales a nivel de Técnico Superior Universitario en áreas de la ciencia y de la tecnología, prioritaria para el desarrollo de la región y del país.
+			p.n Misión
+			p Formar Técnicos Superiores Universitarios caracterizados por un alto nivel de capacitación práctica, en atención a las necesidades de desarrollo social y económico del país y de la región; y de acuerdo a lo planteado en la Constitución de la República Bolivariana de Venezuela.
+			p.n Visión
+			p Consolidarnos como una Institución de educación superior caracterizado por la excelencia académica; que promueve los valores humanos tanto en su personal docente y administrativo como en sus egresados. Desarrollando programas que colaboren en los planes de crecimiento regional.
+		.col
+			figure.figure
+				img(src="images/pascal.png" class="figure-img img-thumbnail")
+				figcaption.figure-caption.text-center Instituto Universitario de Tecnología Pascal (IUTEPAS) - Cagua
+
+	.row
+		.col
+			p.n Información Básica
+			ul
+				li
+					b Dirección: 
+					span Estado Aragua Municipio Sucre. Calle Mariño entre Calle Páez y Miranda. Cagua.
+				li
+					b Teléfono: 
+					span 0244 - 395.80.64
+				li
+					b Correo Electrónico:  
+					span iutepascal@cantv.net / cee.iutpascal@gmail.com
+				li
+					b Página Web: 
+					a(href="http://www.iutepascal.com.ve", target="_blank")  www.iutepascal.com.ve
+
+			p.n  Requisitos de Ingreso
+				ul
+					li Certificado de Participación en el Sistema Nacional de Ingreso. Según Pautas para el Sistema Nacional de Ingreso a la Educación Superior 2009, Gaceta Oficial de la República Bolivariana de Venezuela Número 39.190 de fecha 1 de junio de 2009.
+					li Preinscripción interna: Enero - marzo / julio - septiembre.
+					li Curso propedéutico (1 mes): Febrero y septiembre.
+			p.n Carreras ofrecidas - Titulo otorgado
+			table.table.table-bordered
+				thead.thead-dark
+					th CARRERA
+					TH TITULO
+				tbody
+					tr
+						td Tecnología de Alimentos (Técnica)
+						td Técnico Superior Universitario en Tecnología de Alimentos
+					tr
+						td Administración: Contabilidad de Costos			
+						td Técnico Superior Universitario en Administración Contabilidad de Costos
+					tr
+						td Administración Bancaria y Financiera (Técnica)
+						td Técnico Superior Universitario en Administración Bancaria y Financiera
+					tr
+						td Administración de Empresas (Técnica)
+						td Técnico Superior Universitario en Administración de Empresas
+					tr
+						td Informática (Técnica)
+						td Técnico Superior Universitario en Informática
+					tr
+						td Diseño Gráfico (Técnica)
+						td Técnico Superior Universitario en Diseño Gráfico
+					tr
+						td Comunicaciones y Electrónica (Técnica)
+						td Técnico Superior Universitario en Comunicación y Electrónica
+
+include footer.pug

@@ -1,0 +1,77 @@
+include header.pug
+
+.container
+	br
+	.row.justify-content-around
+		.col
+			h4 #{tipo}
+		if tipo == 'ServicioComunitario'
+			.col-1
+				a.btn.btn-info(href="/pdf/listadoservcom" data-toggle="tooltip" title="Listado de Servicio Comunitario")
+					i.fa.fa-file-pdf-o
+		else
+			.col-1
+				a.btn.btn-info(href="/pdf/listadoPasantia" data-toggle="tooltip" title="Listado de Pasantía")
+					i.fa.fa-file-pdf-o
+		.col-1
+			h4
+				button.btn.btn-info(data-toggle="modal" data-target="#estad")
+					i.fa.fa-bar-chart
+
+	br
+	table.table.table-bordered.table-hover.table-sm
+		thead.thead-bg-dark
+			th Cédula
+			th Nombre
+			th Apellido
+			-// pero q carajos paso aqui no entiendo
+			if (tipo == 'Pasantia')
+				th Organización
+				th Semanas
+			else
+				th(style="max-width:100px") Horas Cumplidas
+			th Inició
+			th Acciones
+		tbody
+			each filas in info	
+				tr
+					td= filas.cedula
+					td= filas.nombre
+					td= filas.apellido
+					if (tipo == 'Pasantia')
+						td= filas.organizacion
+						td= filas.semanas
+					if tipo == 'ServicioComunitario'
+						td= filas.horasCumplidas
+					td= filas.fechaInicio
+					td(colspan="2")
+						a.btn.btn-info.btn-sm(href="/estudiante/"+tipo+"/"+ filas.id data-toggle="tooltip" title="Información del estudiante")
+							i.fa.fa-info
+						span  
+						if role == 'secretaria'
+							a.btn.btn-danger.btn-sm.disabled(href="/borrar/"+tipo+"/"+ filas.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+								i.fa.fa-trash-o
+						else
+							a.btn.btn-danger.btn-sm(href="/borrar/"+tipo+"/"+ filas.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+								i.fa.fa-trash-o
+
+//-  MODAL DE ESTADISTICAS
+.modal.fade#estad
+	.modal-dialog
+		.modal-content
+			.modal-header
+				h3.modal-title.center-text Estadisticas
+				button.close(data-dismiss="modal" aria-label="close")
+					span(aria-hidden="true") &times;
+			.modal-body
+				table.table.table-bordered.table-hover
+					thead.thead-bg-dark
+						th Cantidad
+						th Carrera
+					tbody
+						each cant in cantidad
+							tr
+								td= cant.cant
+								td= cant.carrera
+
+include footer.pug

@@ -1,0 +1,30 @@
+doctype html
+html
+	head
+		meta(charset="utf8")
+		title Sistema de control con Nodejs
+		link(rel="stylesheet" href="libs/bootstrap4/css/bootstrap.css")
+		link(rel="stylesheet" href="libs/fa-4.7.0/css/font-awesome.min.css")
+		link(rel="stylesheet" href="css/estilos.css")
+	body.container
+		form.form-row.justify-content-md-center.col-md-auto(method="post")
+			.card
+				.card-header
+					h5.card-title.text-center Iniciar Sesión
+				.card-body
+					if (variable)
+						.alert.alert-danger.alert-dismissible.fade.show
+							span= variable
+					.col.input-group
+						.input-group-addon.a
+							i.fa.fa-user
+						input.form-control.a(name="user" placeholder="Usuario" autofocus required)
+					.col.input-group
+						.input-group-addon.b
+							i.fa.fa-lock
+						input.form-control.b(type="password" name="passwd" placeholder="Contraseña" required)
+					br
+					.col
+						input.btn.btn-info.btn-block(type="submit" value="Entrar")
+
+include footer.pug

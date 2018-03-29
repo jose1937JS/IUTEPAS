@@ -1,0 +1,24 @@
+{
+  "name": "nestor",
+  "version": "1.0.0",
+  "description": "Sistema de Registro de estudiantes de pasantia y servicio comunitario en el instituto de tecnologia pascal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "JFLO",
+  "license": "ISC",
+  "dependencies": {
+    "blob-stream": "^0.1.3",
+    "body-parser": "^1.18.2",
+    "brfs": "^1.4.3",
+    "express": "^4.16.2",
+    "express-myconnection": "^1.0.4",
+    "express-session": "^1.15.6",
+    "multer": "^1.3.0",
+    "nodemon": "^1.12.5",
+    "pdfkit": "^0.8.3",
+    "pug": "^2.0.0-rc.4"
+  }
+}

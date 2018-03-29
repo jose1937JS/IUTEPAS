@@ -1,0 +1,47 @@
+html(lang="es")
+head
+	meta(charset="UTF-8")
+	title Certificación de Servicio Comunitario
+	link(rel="stylesheet" href="/libs/bootstrap4/css/bootstrap.css")
+	link(rel="stylesheet" href="/libs/fa-4.7.0/css/font-awesome.min.css")
+	link(rel="stylesheet" href="/css/estilosPDF.css")
+body#body
+	.container-fluid
+		.row
+			.col-md-1
+				img(src="../../images/img.png")
+			.col.text-right.top.font-weight-bold.margin-top
+				p.negro INSTITUTO UNIVERSITARIO DE TECNOLOGÍA "PASCAL"
+				p.thin Cagua, Estado Aragua
+		.row.top-2
+			h1.centrado Certificación de Servicio Comunitario
+		.row.top
+			p.texto.text-justify Quien suscribe, #{per[0].profesion}. #{per[0].nombreEmp} titular de la Cédula de Identidad N° #{per[0].cedulaEmp} en mi carácter de Jefe de División Profesional del Instituto Universitario de Tecnología Pascal, por medio de la presente otorga la CERTIFICACIÓN a el Bachiller #{info[0].apellido} #{info[0].nombre}, titular de la Cédula de Identidad N° #{info[0].cedula}, cursante de la carrera #{info[0].carrera}, por haber culminado satisfactoriamente (Aprobado) la prestación del Servicio Comunitario, mediante la ejecución del proyecto denominado: #{info[0].proyecto}, ejecutado durante el lapso académico #{periodo}.
+			p.texto.text-justify De esta forma el prenombrado Bachiller cumple con los requisitos establecidos en la LEY DE SERVICIO COMUNITARIO DEL ESTUDIANTE DE EDUCACIÓN SUPERIOR, publicada en Gaceta Oficial N° 38.272 de fecha 14/09/2005.
+			p.texto.text-justify Certificación que se expide en la ciudad de Cagua, en fecha #{dias} de #{mes[mesnum]} del #{anio} , a los fines académicos correspondientes.
+
+		.row.justify-content-around
+			.col-4
+				.linea
+				p.text-center #{per[0].profesion}. #{per[0].nombreEmp}
+				p.text-center Jefe de Control de Estudios y Evaluación
+			.col-4
+				.linea
+				p.text-center #{per[2].profesion}. #{per[2].nombreEmp}
+				p.text-center Coor. Servicio Comunitario
+		.row
+			.col.top-2
+				p.tiny Elaborado: #{per[1].profesion}. #{per[1].nombreEmp}, Coor. Pasantías.
+				p.tiny Revisado:  #{per[3].profesion}. #{per[3].nombreEmp}, Coor. Control de Estudios y Evaluación.
+				p.tiny Vo.Bo.: #{per[0].profesion}. #{per[0].nombreEmp}, Jefe de Control de Estudios y Evaluación.
+		.row
+			.col.top-2.text-center
+				.linea2
+				b.b Gaceta Oficial N° 36.104 / Decreto Presidencial N° 1608 / RIF: J-30767674-4
+				p.tiny Calle Mariño entre Páez y Miranda. Cagua 2122. Estado Aragua. Tlf: (0244) 395.80.64 / 395.71.21 - Fax: (0244) 447.21.02
+				p.tiny Correo: iutepascal@cantv.net
+
+	script(src="/libs/jquery-3.2.1.min.js")
+	script(src="/libs/bootstrap4/js/popper.min.js")
+	script(src="/libs/bootstrap4/js/bootstrap.min.js")
+	script(src="/js/scripts.js")

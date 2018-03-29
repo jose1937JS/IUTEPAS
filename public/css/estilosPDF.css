@@ -1,0 +1,72 @@
+@font-face{
+	src : url(fonts/Bellefair/Bellefair-Regular.ttf);
+	font-family: bellefair;
+	/*serif*/
+}
+@font-face{
+	src : url(fonts/Montserrat/Montserrat-Light.ttf);
+	font-family: montserrat;
+	/*sans serif*/
+}
+
+.body { height: 100% }
+.body, table { font-size: 13px }
+img {
+	height: 100px;
+	width: 100px
+}
+
+.header {
+	line-height: 10px;
+	font-family: sans-serif;
+}
+.top { margin-top: 20px }
+.top-2 { margin-top: 35px }
+/*.bottom { margin-bottom: -10%}*/
+.texto{
+	text-indent: 40;
+	font-family: serif;
+	font-family: sans-serif
+}
+
+.margin-top {
+	margin-top: -80px
+}
+.linea { 
+	border-bottom: 1px solid;
+	text-align: center;
+	margin: 10px auto;
+	width: 200px;
+	margin-top: 40%; 
+}
+
+.linea2 {
+	margin: 4px auto; 
+	width: 100%;
+	border-bottom: 1px solid;
+}
+.table-sm td { padding: 0.5rem }
+
+.negro {
+	font-size: 20px;
+	font-family: montserrat;
+}
+.thin {
+	font-size: 19px;
+	font-weight: lighter ;
+	font-family: montserrat;
+}
+h1.centrado {
+	margin: auto;
+	font-family: bellefair;
+}
+.row.top > p.texto {
+	margin-top: 10px
+}
+p.tiny {
+	line-height: 5px;
+	font-size: 12px;
+}
+.b {
+	line-height: 35px;
+}

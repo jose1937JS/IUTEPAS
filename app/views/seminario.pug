@@ -1,0 +1,33 @@
+include header.pug
+
+.container
+	br
+	h4 Seminarios
+	br
+
+		//- TABLA PARA seminarios
+	.row.justify-content-center
+		.col-10
+			table.table.table-bordered.table-hover
+				thead.thead-bg-dark
+					th Seminario
+					th Duracion
+					th Fecha Inicio
+					th Acciones
+				tbody
+					each infor in info		
+						tr
+							td= infor.nombresem
+							td= infor.duracion
+							td= infor.fecha_inicio
+							td(colspan="2")
+								a.btn.btn-info.btn-sm(href="/seminario/"+infor.nombresem data-toggle="tooltip" title="Personas Inscritas")
+									i.fa.fa-info
+								span  
+								if role == 'secretaria'
+									a.btn.btn-danger.btn-sm.disabled(href="/borrar/"+tipo+"/"+ infor.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+										i.fa.fa-trash-o
+								else
+									a.btn.btn-danger.btn-sm(href="/borrar/"+tipo+"/"+ infor.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+										i.fa.fa-trash-o
+include footer.pug

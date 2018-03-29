@@ -1,0 +1,38 @@
+include header.pug
+
+.container
+	br
+	.row.justify-content-around
+		.col
+			h4 Listado de #{seminario} 
+		.col-1
+			h4
+				span.badge.badge-info(data-toggle="tooltip" data-title="Cantidad de personas inscritas") #{cantidad[0].cant} 
+	br
+	.row.justify-content-center
+		.col-10
+			table.table.table-bordered.table-hover
+				thead.thead-bg-dark
+					th Cédula
+					th Nombre
+					th Apellido
+					th Teléfono
+					th Correo
+					th Eliminar
+				tbody
+					each servicio in datos		
+						tr
+							td= servicio.cedula
+							td= servicio.nombre
+							td= servicio.apellido
+							td= servicio.telefono
+							td= servicio.correo
+							td
+								if role == 'secretaria'
+									a.btn.btn-danger.btn-sm.disabled(href="/seminario/"+ seminario +'/'+ servicio.id data-toggle="tooltip" data-placement="right" title="Solo el usuario admin puede eliminar" onclick="return confirm('¿Estás seguro?')")
+										i.fa.fa-trash-o
+								else
+									a.btn.btn-danger.btn-sm(href="/seminario/"+ seminario +'/'+ servicio.id data-toggle="tooltip" data-placement="right" title="Eliminar" onclick="return confirm('¿Estás seguro?')")
+										i.fa.fa-trash-o
+
+include footer.pug

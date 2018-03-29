@@ -1,0 +1,179 @@
+include header.pug
+
+.container
+
+	br
+	#pdf.alert.alert-info.alert-dismissible.fade.show(style="display:none")
+		span PDF generado exitosamente en:
+			strong#msj
+		button.close(data-dismiss="alert", aria-label="close")
+			span(aria-hidden="true") &times;
+
+	br
+	.row.justify-content-center
+		.card.shadow
+			.card-header
+				h4 #{datos[0].nombre} #{datos[0].apellido}
+			.card-body.row
+				.card.col-4
+					img.card-img-top(src="/images/uploads/"+ datos[0].imagen  style="height: 250px")
+					form(method="post" enctype="multipart/form-data" action="/estudiante/" + tipo +"/"+ datos[0].id + "/imagen")
+						input.form-control(type="file" name="foto" )
+						input.form-control.btn.btn-primary(type="submit" value="Subir imagen")
+					.card-body
+						ul.list-group
+							li.list-group-item
+								b Tipo: 
+								span #{tipo}
+							li.list-group-item(data-toggle="tooltip" title="AAAA-MM-DD")
+								b Fecha inicio: 
+								span #{datos[0].fechaInicio}
+							li.list-group-item(data-toggle="tooltip" title="AAAA-MM-DD")
+								b Fecha fin: 
+								span #{datos[0].fechaFin}
+				.col
+					ul.list-group
+						li.list-group-item
+							b Cédula: 
+							span #{datos[0].cedula}
+						li.list-group-item
+							b Estudiante: 
+							span #{datos[0].nombre} #{datos[0].apellido}
+						li.list-group-item
+							b Teléfono: 
+							span #{datos[0].telefono}
+						li.list-group-item
+							b Correo Electrónico: 
+							span #{datos[0].correo}
+						li.list-group-item
+							b Carrera: 
+							span #{datos[0].carrera}
+						if tipo == 'ServicioComunitario'
+							li.list-group-item
+								b Institución: 
+								span #{datos[0].institucion}
+						else
+							li.list-group-item
+								b Organización donde hace pasantías: 
+								span #{datos[0].organizacion}
+							li.list-group-item
+								b Teléfono de la Organización: 
+								span #{datos[0].telefonoOrg}
+							li.list-group-item
+								b Dirección de la Organización: 
+								span #{datos[0].direccionOrg}
+						if (tipo == 'ServicioComunitario')
+							li.list-group-item
+								b Proyecto: 
+								span #{datos[0].proyecto}
+						if tipo == 'Pasantia'
+							li.list-group-item
+								b Tutor: 
+								span #{datos[0].tutor}
+							li.list-group-item
+								b Cédula del Tutor: 
+								span #{datos[0].cedulaTutor}
+							li.list-group-item
+								b Cargo del Tutor: 
+								span #{datos[0].cargoTutor}
+							li.list-group-item
+								b Correo Electrónico del Tutor: 
+								span #{datos[0].correoTutor}
+							li.list-group-item
+								b Tutor Académico: 
+								span #{datos[0].tutorAcad}
+							li.list-group-item
+								b Cédula del tutor Académico: 
+								span #{datos[0].cedulaTutorAcad}
+
+						li.list-group-item
+							if tipo == 'Pasantia'
+								b Semanas: 
+								span  #{datos[0].semanas}
+
+							else
+								b Horas Cumplidas: 
+								span  #{datos[0].horasCumplidas}
+							if ( datos[0].semanas == 14 && tipo == 'Pasantia')
+								form( method="get" action="/pdf/certificadoPasan/" + datos[0].cedula )
+				
+									input#ffinpas(type="hidden" name="ffinpas")
+									input(type="hidden" name="id" value= datos[0].idd)
+									
+									button.sombra.btn.btn-primary(type="submit" onclick="let fecha=new Date(),dia=fecha.getDate(),mes=fecha.getMonth()+1,anio=fecha.getFullYear();$('#ffinpas').val(anio+'-'+mes+'-'+dia);")
+										i.fa.fa-file-pdf-o
+										span  Certificado de Culminación
+
+							if ( datos[0].horasCumplidas >= 120 && tipo == 'ServicioComunitario')								
+								form(method="get" action="/pdf/certificadoSC/" + datos[0].cedula )
+
+									input(id="ffinserv" type="hidden" name="sevend")
+									input(type="hidden" name="id" value= datos[0].idd)
+									
+									.form-row
+										button#fechafin.btn.btn-sm.btn-primary.sombra(type="submit" onclick="let fecha=new Date(), dia=fecha.getDate(), mes=fecha.getMonth()+1, anio=fecha.getFullYear(); $('#ffinserv').val(anio+'-'+mes+'-'+dia)")
+											i.fa.fa-file-pdf-o
+											span   Certificado de Servicio Comunitario
+						if (tipo == 'Pasantia')
+							li.list-group-item
+								div
+									button.btn.btn-sm.btn-primary(data-target="#carta" data-toggle="modal" ) 
+										i.fa.fa-file-pdf-o
+										span   Cenerar Carta de Postulación
+						if tipo == 'ServicioComunitario'
+							li.list-group-item
+								form.container-fluid(method="post")
+									b Sumar Horas:
+									.col.form-inline
+										input(type="hidden" name="idd" value= datos[0].idd)
+										input.form-control.col(type="number" max="120" placeholder="+ H" name="horas" required)
+										span &nbsp;&nbsp;
+						
+										input.btn.btn-primary.btn-block.col(type="submit" value="Sumar")
+						else
+							li.list-group-item
+								form.container-fluid(method="post")
+									b Sumar Semanas: 
+									.col.form-inline
+										input(type="hidden" name="idd" value= datos[0].idd)
+										input.form-control.col(type="number" max="14" placeholder="+ S" name="semanas" required)
+										span &nbsp;&nbsp;
+						
+										input.btn.btn-primary.btn-block.col(type="submit" value="Sumar")
+
+//- MODAL CArta  DE POSTLACION
+.modal.fade#carta
+	.modal-dialog.modal-lg
+		.modal-content
+			.modal-header
+				h3.modal-title.text-center Carta de Postulación
+				button.close(data-dismiss="modal" aria-label="close")
+					span(aria-hidden="true") &times;
+			form.modal-body( method="get" action="/pdf/cartapostulacion/" + datos[0].cedula )
+				
+				.form-row
+					.input-group.col
+						.input-group-addon
+							i.fa.fa-slack
+						input.form-control(type="text" placeholder="Persona a recibir esto" name="nombrepersonal" 
+						data-toggle="tooltip" title="Persona encargada de recibir ésta carta" pattern="[a-zA-Z]+ ?[a-zA-Z]*" required)
+					.input-group.col
+						.input-group-addon
+							i.fa.fa-slack
+						input.form-control(type="text" placeholder="Semestre" name="semestre" 
+						data-toggle="tooltip" title="Semestre del estudiante en letras" required pattern="[a-zA-Z]+" maxlength="7")
+					.input-group.col
+						.input-group-addon
+							i.fa.fa-slack
+						input.form-control(type="date" name="fechafin" 
+						data-toggle="tooltip" title="Fecha estimada de finalización de pasantias" required)
+				br
+				.modal-footer
+					.form-row
+						input.sombra.btn.btn-secondary(type="reset" value="Reset")  
+						span &nbsp;&nbsp;
+						button.sombra.btn.btn-primary(type="submit")
+							i.fa.fa-file-pdf-o
+							span  Generar Carta
+
+include footer.pug

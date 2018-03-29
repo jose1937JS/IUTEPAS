@@ -1,0 +1,54 @@
+html(lang="es")
+head
+	meta(charset="UTF-8")
+	title Listado de culminación servicio comunitario
+	link(rel="stylesheet" href="/libs/bootstrap4/css/bootstrap.css")
+	link(rel="stylesheet" href="/libs/fa-4.7.0/css/font-awesome.min.css")
+	link(rel="stylesheet" href="/css/estilosPDF.css")
+body.body#body
+	.container-fluid
+		.row
+			.col-md-1
+				img(src="../images/img.png")
+			.col.top.font-weight-bold.text-center.margin-top
+				p.header INSTITUTO UNIVERSITARIO DE TECNOLOGIA PASCAL
+				p.header LISTADO DE GRADUANDOS QUE REALIZARON PASANTÌA
+				p.header PERIOD0 #{anio}
+		.row.top
+			p.texto.text-justify QUIENES SUSCRIBEN #{per[0].profesion}. #{per[0].nombreEmp}, TITULAR DE LA CEDULA DE IDENTIDAD N° #{per[0].cedulaEmp}, JEFE DE CONTROL DE ESTUDIO Y EVALUACIÓN Y #{per[1].profesion}. #{per[1].nombreEmp}, TITULAR DE LA CEDULA DE IDENTIDAD N° #{per[1].cedulaEmp}, COORDINADOR DE PASANTIA, CERTIFICAMOS QUE LOS ALUMNOS QUE A CONTINUACION SE MENCIONAN CUMPLIERON Y APROBARON PASANTÍA SEGÚN LO ESTABLECIDO EN EL ARTÍCULO 6 DE LA LEY DE PASANTÍA DEL ESTUDIANTE DE EDUCACIÓN SUPERIOR, PUBLICADA EN GACETA OFICIAL N° 38.272 DEL 14 DE SEPTIEMBRE DE 2005.
+
+		.row
+			table.table.table-bordered.table-sm
+				thead
+					th N°
+					th APELLIDOS
+					th NOMBRES
+					th CEDULA
+					th CARRERA
+					th CALIFICACIÓN
+				tbody
+					- for (let i=1; i <= info.length; i++)
+						tr
+							td= i
+							td= info[i -1].apellido
+							td= info[i -1].nombre
+							td= info[i -1].cedula
+							td= info[i -1].carrera
+							if (info[i -1].semanas < 14)
+								td REPROBADO
+							else
+								td APROBADO
+		.row.justify-content-around
+			.col-4
+				.linea
+				p.text-center #{per[0].profesion}. #{per[0].nombreEmp}
+				p.text-center Jefe de Control de Estudios y Evaluación
+			.col-4
+				.linea
+				p.text-center #{per[1].profesion}. #{per[1].nombreEmp}
+				p.text-center Coor. Pasantía
+
+	script(src="/libs/jquery-3.2.1.min.js")
+	script(src="/libs/bootstrap4/js/popper.min.js")
+	script(src="/libs/bootstrap4/js/bootstrap.min.js")
+	script(src="/js/scripts.js")
